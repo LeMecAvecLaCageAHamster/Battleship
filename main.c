@@ -8,8 +8,8 @@
 #define ID_CROISEUR 3
 #define ID_PORTEAVION 4
 #define MAP_ITEMS 6
-#define MAP_H 18
-#define MAP_W 24
+#define MAP_H 9
+#define MAP_W 12
 
 
 
@@ -38,7 +38,7 @@ int main()
         Joueur_Joueur();
         break;
     case 4:
-        Load();
+        Load(); // WORK IN PROGRESS
     case 5:
         HTP();
         break;
@@ -109,22 +109,16 @@ void Load()
     printf("Saisissez le nom de la sauvegarde a charger : \n");
     scanf("%s", name);
 
-    //VOIR PDF §§§§§§§§
+    char mode;
 
-    int mode;
-    switch(mode)
+    mode = fgetc(save);
+    printf("%c", mode);
+
+    if(mode == '0')
     {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    default:
-        printf("Erreur de chargement, retour sur le menu");
-        //main();
-        break;
+        printf("test");
     }
+
 }
 
 
@@ -397,12 +391,12 @@ void Joueur_Joueur()
 
         if(placementAuto == 0)
         {
-            PlacementCorvetteIA(map_j1);
-            PlacementCroiseurIA(map_j1);
-            PlacementCroiseurIA(map_j1);
-            PlacementDestroyerIA(map_j1);
-            PlacementDestroyerIA(map_j1);
-            PlacementPorteAvionIA(map_j1);
+            PlacementCorvette(map_j1);
+            PlacementCroiseur(map_j1);
+            PlacementCroiseur(map_j1);
+            PlacementDestroyer(map_j1);
+            PlacementDestroyer(map_j1);
+            PlacementPorteAvion(map_j1);
             PrintMap(map_j1, "");
             printf("Appuyez sur Entree \n");
             fflush(stdin);
@@ -573,12 +567,12 @@ void Joueur_Joueur()
 
         if(placementAuto == 0)
         {
-            PlacementCorvetteIA(map_j2);
-            PlacementCroiseurIA(map_j2);
-            PlacementCroiseurIA(map_j2);
-            PlacementDestroyerIA(map_j2);
-            PlacementDestroyerIA(map_j2);
-            PlacementPorteAvionIA(map_j2);
+            PlacementCorvette(map_j2);
+            PlacementCroiseur(map_j2);
+            PlacementCroiseur(map_j2);
+            PlacementDestroyer(map_j2);
+            PlacementDestroyer(map_j2);
+            PlacementPorteAvion(map_j2);
             PrintMap(map_j2, "");
             printf("Appuyez sur Entree \n");
             fflush(stdin);
@@ -742,12 +736,12 @@ void Joueur_IA()
 
     if(placementAuto == 0)
     {
-        PlacementCorvetteIA(map_j);
-        PlacementCroiseurIA(map_j);
-        PlacementCroiseurIA(map_j);
-        PlacementDestroyerIA(map_j);
-        PlacementDestroyerIA(map_j);
-        PlacementPorteAvionIA(map_j);
+        PlacementCorvette(map_j);
+        PlacementCroiseur(map_j);
+        PlacementCroiseur(map_j);
+        PlacementDestroyer(map_j);
+        PlacementDestroyer(map_j);
+        PlacementPorteAvion(map_j);
     }
 
     if(placementAuto == 1)
@@ -899,12 +893,12 @@ void Joueur_IA()
 
 
     f();f();
-    PlacementPorteAvionIA(map_ia);
-    PlacementCroiseurIA(map_ia);
-    PlacementCroiseurIA(map_ia);
-    PlacementDestroyerIA(map_ia);
-    PlacementDestroyerIA(map_ia);
-    PlacementCorvetteIA(map_ia);
+    PlacementPorteAvion(map_ia);
+    PlacementCroiseur(map_ia);
+    PlacementCroiseur(map_ia);
+    PlacementDestroyer(map_ia);
+    PlacementDestroyer(map_ia);
+    PlacementCorvette(map_ia);
 
     printf("Debut du jeu ! Appuyez sur Entree \n");
     fflush(stdin);
@@ -1014,8 +1008,9 @@ void Joueur_IA()
 void IA_IA()
 {
     printf("Vous avez choisi le mode IA vs IA. \nAppuyez sur Entree\n");
+    system("cls");
 
-    int map_IA1[MAP_H][MAP_W] = {1};
+    int map_IA1[MAP_H][MAP_W] = {0};
     int map_IA2[MAP_H][MAP_W] = {0};
     int tour = 0;
     int tab1[MAP_H][MAP_W] = {0};
@@ -1027,19 +1022,19 @@ void IA_IA()
     int compteur2 = 21;
 
 
-    PlacementPorteAvionIA(map_IA1);
-    PlacementCroiseurIA(map_IA1);
-    PlacementCroiseurIA(map_IA1);
-    PlacementDestroyerIA(map_IA1);
-    PlacementDestroyerIA(map_IA1);
-    PlacementCorvetteIA(map_IA1);
+    PlacementPorteAvion(map_IA1);
+    PlacementCroiseur(map_IA1);
+    PlacementCroiseur(map_IA1);
+    PlacementDestroyer(map_IA1);
+    PlacementDestroyer(map_IA1);
+    PlacementCorvette(map_IA1);
 
-    PlacementPorteAvionIA(map_IA2);
-    PlacementCroiseurIA(map_IA2);
-    PlacementCroiseurIA(map_IA2);
-    PlacementDestroyerIA(map_IA2);
-    PlacementDestroyerIA(map_IA2);
-    PlacementCorvetteIA(map_IA2);
+    PlacementPorteAvion(map_IA2);
+    PlacementCroiseur(map_IA2);
+    PlacementCroiseur(map_IA2);
+    PlacementDestroyer(map_IA2);
+    PlacementDestroyer(map_IA2);
+    PlacementCorvette(map_IA2);
 
     Save(1, 0, tour, compteur1, compteur2, map_IA1, map_IA2, tab1, tab2);
 
@@ -1191,7 +1186,7 @@ void PrintMap(int map[MAP_H][MAP_W], char string[26])
                 Color(0, 8);
                 break;
             case 9:
-                Color(0, 15);
+                Color(15, 15);
                 break;
             default:
                 Color(0, 4);
@@ -1208,7 +1203,7 @@ void PrintMap(int map[MAP_H][MAP_W], char string[26])
 }
 
 
-void PlacementCorvetteIA(int map[MAP_H][MAP_W])
+void PlacementCorvette(int map[MAP_H][MAP_W])
 {
     int x = doRand(0, MAP_W-1);
     int y = doRand(0, MAP_H-1);
@@ -1222,7 +1217,7 @@ void PlacementCorvetteIA(int map[MAP_H][MAP_W])
     map[y][x] = ID_CORVETTE;
 }
 
-void PlacementDestroyerIA(int map[MAP_H][MAP_W])
+void PlacementDestroyer(int map[MAP_H][MAP_W])
 {
     int taille = 3;
     int x = doRand(0, MAP_W-1);
@@ -1268,7 +1263,7 @@ for(i=0;i<taille;i++)
 }
 
 
-void PlacementCroiseurIA(int map[MAP_H][MAP_W])
+void PlacementCroiseur(int map[MAP_H][MAP_W])
 {
     int taille = 4;
     int x = doRand(0, MAP_W-1);
@@ -1313,7 +1308,7 @@ for(i=0;i<taille;i++)
 }
 
 
-void PlacementPorteAvionIA(int map[MAP_H][MAP_W])
+void PlacementPorteAvion(int map[MAP_H][MAP_W])
 {
     int taille = 6;
     int x = doRand(0, MAP_W-1);
